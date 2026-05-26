@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('projects'))
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout title="Projects" description="Apps, tools, and experiments I've built.">
+  <header class="page-header">
+    <div class="meta-label">Index · {projects.length} projects</div>
+    <h1>
+      Things I've <span class="accent">built</span> and kept building.
+    </h1>
+    <p class="page-lede">
+      Some of these make money. Most don't. All of them taught me something I now use every day.
+    </p>
+  </header>
+
+  <section class="section" style="padding: 60px 0 120px;">
+    <div class="projects-grid">
+      {projects.map((p, i) => (
+        <ProjectCard
+          kicker={p.data.kicker}
+          title={p.data.title}
+          description={p.data.description}
+          tech={p.data.tech}
+          url={p.data.url ?? `/projects/${p.slug}`}
+          featured={p.data.featured}
+          span={i % 3 === 0 ? 'span-7' : i % 3 === 1 ? 'span-5' : 'span-6'}
+        />
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-header { padding: 80px 0 60px; }
+  .meta-label { margin-bottom: 24px; }
+  h1 {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: clamp(44px, 6.5vw, 80px);
+    line-height: 1;
+    letter-spacing: -0.035em;
+    max-width: 18ch;
+    color: var(--ink);
+  }
+  h1 .accent { color: var(--accent); font-weight: 800; }
+  .page-lede {
+    font-family: var(--font-sans);
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--ink-2);
+    max-width: 52ch;
+    margin-top: 32px;
+    letter-spacing: -0.005em;
+  }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 24px;
+  }
+</style>

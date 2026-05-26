@@ -1,0 +1,282 @@
+/* ============================================================
+   marcoledesma.com — global styles
+   Design tokens, resets, and shared primitives.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  /* Color */
+  --paper: #f4f1ea;
+  --paper-2: #ebe6db;
+  --ink: #1a1814;
+  --ink-2: #2d2a24;
+  --muted: #6b665c;
+  --rule: #d8d2c4;
+  --accent: #2f5d54;
+  --accent-soft: #c9d6c8;
+  --warm: #c2693a;
+
+  /* Featured card (light mode = dark card) */
+  --featured-bg: var(--ink);
+  --featured-text: var(--paper);
+  --featured-kicker: #b8b3a8;
+  --featured-desc: #d8d2c4;
+  --featured-tech: #b8b3a8;
+
+  /* Type */
+  --font-sans: 'Geist', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+
+  /* Scale */
+  --container: 1180px;
+  --gutter: 32px;
+}
+
+/* System preference dark mode (only when no explicit data-theme is set) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]):not([data-theme="light"]) {
+    --paper: #18171a;
+    --paper-2: #232227;
+    --ink: #ece8e0;
+    --ink-2: #d6d1c5;
+    --muted: #8a857a;
+    --rule: #353138;
+    --accent: #8ab8ad;
+    --accent-soft: #2f5d54;
+    --warm: #d99064;
+    --featured-bg: #ece8e0;
+    --featured-text: #18171a;
+    --featured-kicker: #6b665c;
+    --featured-desc: #2d2a24;
+    --featured-tech: #6b665c;
+  }
+}
+
+/* Explicit dark mode override */
+[data-theme="dark"] {
+  --paper: #18171a;
+  --paper-2: #232227;
+  --ink: #ece8e0;
+  --ink-2: #d6d1c5;
+  --muted: #8a857a;
+  --rule: #353138;
+  --accent: #8ab8ad;
+  --accent-soft: #2f5d54;
+  --warm: #d99064;
+  --featured-bg: #ece8e0;
+  --featured-text: #18171a;
+  --featured-kicker: #6b665c;
+  --featured-desc: #2d2a24;
+  --featured-tech: #6b665c;
+}
+
+/* Explicit light mode override (resets to light even if system is dark) */
+[data-theme="light"] {
+  --paper: #f4f1ea;
+  --paper-2: #ebe6db;
+  --ink: #1a1814;
+  --ink-2: #2d2a24;
+  --muted: #6b665c;
+  --rule: #d8d2c4;
+  --accent: #2f5d54;
+  --accent-soft: #c9d6c8;
+  --warm: #c2693a;
+  --featured-bg: var(--ink);
+  --featured-text: var(--paper);
+  --featured-kicker: #b8b3a8;
+  --featured-desc: #d8d2c4;
+  --featured-tech: #b8b3a8;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* Subtle paper grain — applied site-wide via fixed overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.08 0 0 0 0.18 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+a { color: inherit; }
+
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  position: relative;
+  z-index: 2;
+}
+
+/* Accent text — sans-serif, semibold/bold + accent color.
+   Use this instead of <em> in headings now that we're sans-only. */
+.accent {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* Section primitives */
+.section {
+  padding: 100px 0;
+  border-top: 1px solid var(--rule);
+}
+
+.section-head {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 40px;
+  align-items: baseline;
+  margin-bottom: 60px;
+}
+
+.section-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.section-num strong {
+  color: var(--ink);
+  font-weight: 500;
+  margin-right: 8px;
+}
+
+.section-title {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: clamp(32px, 4.5vw, 52px);
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--ink);
+}
+.section-title .accent {
+  color: var(--accent);
+  font-weight: 800;
+}
+
+/* Mono uppercase label, used everywhere */
+.meta-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Read-more arrow link */
+.read-more {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid var(--accent);
+  padding-bottom: 2px;
+  font-weight: 500;
+}
+.read-more::after {
+  content: '→';
+  transition: transform 0.25s ease;
+}
+.read-more:hover::after {
+  transform: translateX(4px);
+}
+
+/* MDX prose — used inside individual blog posts */
+.prose {
+  max-width: 68ch;
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--ink-2);
+}
+.prose > * + * { margin-top: 1.2em; }
+.prose h2 {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 30px;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  color: var(--ink);
+  margin-top: 2em;
+}
+.prose h3 {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-top: 1.6em;
+}
+.prose a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+  font-weight: 500;
+}
+.prose strong { font-weight: 600; color: var(--ink); }
+.prose em { font-style: normal; font-weight: 600; color: var(--accent); }
+.prose blockquote {
+  border-left: 3px solid var(--accent);
+  padding-left: 20px;
+  font-size: 19px;
+  line-height: 1.55;
+  color: var(--ink);
+  font-weight: 500;
+}
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--paper-2);
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+.prose pre {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 24px;
+  border-radius: 4px;
+  overflow-x: auto;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.prose pre code {
+  background: transparent;
+  padding: 0;
+  font-size: inherit;
+}
+.prose ul, .prose ol { padding-left: 1.5em; }
+.prose li + li { margin-top: 0.3em; }
+.prose hr {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: 2.4em 0;
+}
+
+@media (max-width: 860px) {
+  :root { --gutter: 22px; }
+  .section { padding: 70px 0; }
+  .section-head { grid-template-columns: 1fr; gap: 12px; margin-bottom: 40px; }
+}

@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleRow from '../../components/ArticleRow.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout title="Writing" description="Essays on the parts of software I find delightful.">
+  <header class="page-header">
+    <div class="meta-label">Index · {posts.length} pieces</div>
+    <h1>
+      Essays on the parts of software I find <span class="accent">delightful</span>.
+    </h1>
+    <p class="page-lede">
+      The parts of building software I find fun to dig into and worth writing about. I try to write things I wish I'd read earlier.
+    </p>
+  </header>
+
+  <section class="section" style="border-top: 1px solid var(--rule); padding: 60px 0 120px;">
+    <div class="article-list">
+      {posts.map((p) => (
+        <ArticleRow
+          href={`/blog/${p.slug}`}
+          date={p.data.pubDate}
+          title={p.data.title}
+          tags={p.data.tags}
+        />
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-header { padding: 80px 0 60px; }
+  .meta-label { margin-bottom: 24px; }
+  h1 {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: clamp(44px, 6.5vw, 80px);
+    line-height: 1;
+    letter-spacing: -0.035em;
+    max-width: 18ch;
+    color: var(--ink);
+  }
+  h1 .accent { color: var(--accent); font-weight: 800; }
+  .page-lede {
+    font-family: var(--font-sans);
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--ink-2);
+    max-width: 52ch;
+    margin-top: 32px;
+    letter-spacing: -0.005em;
+  }
+</style>

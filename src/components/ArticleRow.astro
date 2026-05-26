@@ -1,0 +1,68 @@
+---
+export interface Props {
+  href: string;
+  date: Date;
+  title: string;
+  tags?: string[];
+}
+const { href, date, title, tags = [] } = Astro.props;
+const formatted = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: '2-digit' });
+---
+
+<a class="article" href={href}>
+  <span class="date">{formatted}</span>
+  <h4 set:html={title}></h4>
+  <span class="tags">{tags.join(' · ')}</span>
+  <span class="arrow">→</span>
+</a>
+
+<style>
+  .article {
+    display: grid;
+    grid-template-columns: 80px 1fr 200px 80px;
+    gap: 24px;
+    align-items: baseline;
+    padding: 24px 0;
+    border-top: 1px solid var(--rule);
+    transition: padding 0.2s ease;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .article:hover { padding-left: 12px; }
+  .article :global(h4) {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+  .article :global(h4 .accent) {
+    color: var(--accent);
+    font-weight: 700;
+    transition: color 0.2s ease;
+  }
+  .article:hover :global(h4 .accent) { color: var(--warm); }
+  .date {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+  .tags {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+  .arrow {
+    font-family: var(--font-sans);
+    font-size: 22px;
+    color: var(--muted);
+    text-align: right;
+    font-weight: 400;
+  }
+  @media (max-width: 860px) {
+    .article { grid-template-columns: 1fr; gap: 6px; }
+    .arrow { display: none; }
+  }
+</style>

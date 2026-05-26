@@ -1,0 +1,120 @@
+---
+import { NAV } from '../config';
+---
+
+<nav>
+  <a href="/" class="brand">Marco <span>Ledesma</span></a>
+  <div class="nav-links">
+    {NAV.map(({ label, href }) => <a href={href}>{label}</a>)}
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+      <span class="theme-icon sun">☀</span>
+      <span class="theme-icon moon">☾</span>
+    </button>
+  </div>
+</nav>
+
+<script is:inline>
+  (function () {
+    const btn = document.getElementById('theme-toggle');
+    const sun = btn.querySelector('.sun');
+    const moon = btn.querySelector('.moon');
+
+    function updateIcons() {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      sun.style.display = isDark ? 'none' : 'block';
+      moon.style.display = isDark ? 'block' : 'none';
+    }
+
+    updateIcons();
+
+    btn.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      let next;
+      if (current === 'dark') next = 'light';
+      else if (current === 'light') next = prefersDark ? 'dark' : null;
+      else next = prefersDark ? 'light' : 'dark';
+
+      if (next) {
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.removeItem('theme');
+      }
+      updateIcons();
+    });
+  })();
+</script>
+
+<style>
+  nav {
+    padding: 28px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .brand {
+    font-family: var(--font-sans);
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .brand span {
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    align-items: center;
+  }
+  .nav-links a {
+    color: var(--ink-2);
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 2px;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 1px;
+    background: var(--accent);
+    transition: width 0.3s ease;
+  }
+  .nav-links a:hover::after { width: 100%; }
+  .theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    font-size: 16px;
+    line-height: 1;
+    color: var(--ink-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+  }
+  .theme-toggle:hover {
+    background: var(--paper-2);
+  }
+  .theme-icon {
+    display: block;
+  }
+  @media (max-width: 640px) {
+    .nav-links { gap: 16px; font-size: 11px; }
+  }
+</style>

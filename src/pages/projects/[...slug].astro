@@ -1,0 +1,109 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+interface Props { project: CollectionEntry<'projects'>; }
+const { project } = Astro.props;
+const { Content } = await project.render();
+---
+
+<BaseLayout title={project.data.title.replace(/<[^>]+>/g, '')} description={project.data.description}>
+  <article class="project-detail">
+    <header>
+      <a href="/projects" class="back-link">← Projects</a>
+      <div class="kicker">{project.data.kicker} · {project.data.year}</div>
+      <h1 set:html={project.data.title}></h1>
+      <p class="lede">{project.data.description}</p>
+      <div class="meta">
+        <div>
+          <h4>Tech</h4>
+          <p>{project.data.tech.join(', ')}</p>
+        </div>
+        {project.data.url && (
+          <div>
+            <h4>Visit</h4>
+            <p><a href={project.data.url}>{new URL(project.data.url).hostname}</a></p>
+          </div>
+        )}
+        {project.data.repo && (
+          <div>
+            <h4>Source</h4>
+            <p><a href={project.data.repo}>GitHub</a></p>
+          </div>
+        )}
+      </div>
+    </header>
+
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .project-detail { padding: 60px 0 100px; max-width: 720px; margin: 0 auto; }
+  .back-link {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 32px;
+  }
+  .kicker {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: clamp(34px, 4.5vw, 50px);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 24px;
+  }
+  h1 :global(.accent) { color: var(--accent); font-weight: 800; }
+  .lede {
+    font-family: var(--font-sans);
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--muted);
+    margin-bottom: 40px;
+    letter-spacing: -0.005em;
+  }
+  .meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 24px;
+    padding: 24px 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 60px;
+  }
+  .meta h4 {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+  .meta p { font-size: 14px; }
+  .meta a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent); font-weight: 500; }
+</style>

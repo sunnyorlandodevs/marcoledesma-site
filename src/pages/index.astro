@@ -1,0 +1,400 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleRow from '../components/ArticleRow.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const [featuredPost, ...restPosts] = posts;
+
+const projects = (await getCollection('projects'))
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout>
+  <header class="hero">
+    <div class="meta-line">Orlando, FL · Est. 2012</div>
+    <h1>
+      I build <span class="accent">software</span>,<br/>
+      and teach how<br/>
+      it <span class="underline">actually</span> works.
+    </h1>
+
+    <div class="corner-mark">
+      Currently VP of Engineering at SendJim, writing about the parts of software I find delightful.
+    </div>
+
+    <div class="hero-grid">
+      <p class="lede">
+        Engineer for thirteen years across .NET, Laravel, and the messy interior of SaaS products.
+        These days I spend most of my time helping teams ship and helping readers <span class="accent">understand</span>
+        the parts everyone skips past.
+      </p>
+      <aside class="hero-meta">
+        <div class="item">
+          <span class="label">Now</span>
+          VP of Engineering, SendJim
+        </div>
+        <div class="item">
+          <span class="label">Writing</span>
+          <a href="/blog">marcoledesma.com</a>
+        </div>
+        <div class="item">
+          <span class="label">Shipping</span>
+          Sunny Bots · Bill Panda · Stellar Standups
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <!-- WRITING -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-num"><strong>01</strong>The writing</div>
+      <h2 class="section-title">Essays on the parts of software I find <span class="accent">delightful</span>.</h2>
+    </div>
+
+    {featuredPost && (
+      <a class="featured-article" href={`/blog/${featuredPost.slug}`}>
+        <div>
+          <div class="article-meta">
+            {featuredPost.data.pubDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+            · {featuredPost.data.tags.slice(0, 2).map((t) => <span class="tag">#{t}</span>).reduce((a, b) => <>{a} {b}</>, <></>)}
+          </div>
+          <h3>{featuredPost.data.title}</h3>
+          <p>{featuredPost.data.description}</p>
+          <span class="read-more">Read the piece</span>
+        </div>
+        <div class="featured-visual">
+          <pre class="code-preview">{`// ${featuredPost.slug}\n// ${featuredPost.data.tags.join(', ')}\n//\n// "${featuredPost.data.description.slice(0, 60)}..."`}</pre>
+        </div>
+      </a>
+    )}
+
+    <div class="article-list">
+      {restPosts.slice(0, 5).map((p) => (
+        <ArticleRow
+          href={`/blog/${p.slug}`}
+          date={p.data.pubDate}
+          title={p.data.title}
+          tags={p.data.tags}
+        />
+      ))}
+    </div>
+
+    <div style="margin-top: 40px;">
+      <a href="/blog" class="read-more">All writing</a>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-num"><strong>02</strong>The projects</div>
+      <h2 class="section-title">Things I've <span class="accent">built</span> and kept building.</h2>
+    </div>
+
+    <div class="projects-grid">
+      {projects.slice(0, 4).map((p, i) => (
+        <ProjectCard
+          kicker={p.data.kicker}
+          title={p.data.title}
+          description={p.data.description}
+          tech={p.data.tech}
+          url={p.data.url ?? `/projects/${p.slug}`}
+          featured={p.data.featured}
+          span={i === 0 ? 'span-7' : i === 1 ? 'span-5' : 'span-6'}
+        />
+      ))}
+    </div>
+
+    <div style="margin-top: 40px;">
+      <a href="/projects" class="read-more">All projects</a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-num"><strong>03</strong>The story</div>
+      <h2 class="section-title">A <span class="accent">career</span>, not a résumé.</h2>
+    </div>
+
+    <div class="about-strip">
+      <div class="portrait">
+        <span class="portrait-caption">Orlando · 2026</span>
+      </div>
+      <div class="about-text">
+        <p>
+          Started as the first engineer at <span class="accent">Leasecake</span>, building lease-accounting software end-to-end.
+          Spent four years as principal, two as director, learning that the hardest part of engineering is
+          rarely the engineering.
+        </p>
+        <p>
+          Now VP of Engineering at <span class="accent">SendJim</span>, where I help a small team ship a campaign-automation
+          product to thousands of small businesses. On the side I build things — apps that don't make money,
+          tools that do, and writing that tries to make complicated things <span class="accent">obvious</span>.
+        </p>
+        <p>
+          More on the <a href="/about">about page</a>, or
+          <a href="#contact">say hello</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding: 80px 0 100px;
+    position: relative;
+  }
+  .meta-line {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+  .meta-line::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--ink-2);
+  }
+  .hero h1 {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: clamp(44px, 7.5vw, 92px);
+    line-height: 1;
+    letter-spacing: -0.035em;
+    margin-bottom: 32px;
+    max-width: 14ch;
+    color: var(--ink);
+  }
+  .hero h1 .accent {
+    color: var(--accent);
+    font-weight: 800;
+  }
+  .hero h1 .underline {
+    position: relative;
+    display: inline-block;
+  }
+  .hero h1 .underline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 6px;
+    height: 10px;
+    background: var(--accent-soft);
+    z-index: -1;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 80px;
+    align-items: end;
+    margin-top: 60px;
+  }
+  .lede {
+    font-family: var(--font-sans);
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--ink-2);
+    max-width: 42ch;
+    letter-spacing: -0.005em;
+  }
+  .lede .accent { color: var(--accent); font-weight: 600; }
+  .hero-meta {
+    border-left: 1px solid var(--rule);
+    padding-left: 28px;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .hero-meta .label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .hero-meta .item + .item { margin-top: 18px; }
+  .hero-meta a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--rule); }
+
+  .corner-mark {
+    position: absolute;
+    top: 90px;
+    right: 32px;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    transform: rotate(8deg);
+    max-width: 210px;
+    line-height: 1.45;
+  }
+  .corner-mark::before {
+    content: '↘';
+    display: block;
+    font-size: 24px;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  /* Featured article */
+  .featured-article {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 60px;
+    align-items: center;
+    margin-bottom: 60px;
+    padding: 40px;
+    background: var(--paper-2);
+    border-radius: 6px;
+    position: relative;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .featured-article::before {
+    content: 'Latest';
+    position: absolute;
+    top: -10px;
+    left: 32px;
+    background: var(--accent);
+    color: var(--paper);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 3px;
+    font-weight: 500;
+  }
+  .article-meta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .article-meta .tag { color: var(--accent); }
+  .featured-article h3 {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 34px;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    margin-bottom: 16px;
+  }
+  .featured-article p {
+    color: var(--ink-2);
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  .featured-visual {
+    aspect-ratio: 4/3;
+    background: var(--ink);
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+  }
+  .featured-visual::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 30% 30%, rgba(47, 93, 84, 0.4), transparent 50%),
+      radial-gradient(circle at 70% 70%, rgba(194, 105, 58, 0.3), transparent 50%);
+  }
+  .code-preview {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--paper);
+    padding: 28px;
+    position: relative;
+    z-index: 1;
+    white-space: pre-wrap;
+  }
+
+  /* Projects grid */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 24px;
+  }
+
+  /* About strip */
+  .about-strip {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .portrait {
+    aspect-ratio: 4/5;
+    background: linear-gradient(135deg, var(--accent-soft), var(--paper-2));
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    padding: 24px;
+  }
+  .portrait::before {
+    content: 'ML';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-sans);
+    font-weight: 800;
+    font-size: 140px;
+    color: rgba(47, 93, 84, 0.25);
+    letter-spacing: -0.05em;
+  }
+  .portrait-caption {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    position: relative;
+    z-index: 1;
+  }
+  .about-text p {
+    font-family: var(--font-sans);
+    font-size: 19px;
+    font-weight: 400;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin-bottom: 24px;
+    letter-spacing: -0.005em;
+  }
+  .about-text p .accent { color: var(--accent); font-weight: 600; }
+  .about-text a { color: var(--accent); border-bottom: 1px solid var(--accent); text-decoration: none; font-weight: 600; }
+
+  @media (max-width: 860px) {
+    .hero { padding: 50px 0 70px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+    .hero-meta { border-left: none; border-top: 1px solid var(--rule); padding-left: 0; padding-top: 24px; }
+    .corner-mark { display: none; }
+    .featured-article { grid-template-columns: 1fr; padding: 28px; gap: 32px; }
+    .featured-visual { aspect-ratio: 16/10; }
+    .about-strip { grid-template-columns: 1fr; }
+    .portrait { aspect-ratio: 3/2; }
+  }
+</style>

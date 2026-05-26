@@ -1,0 +1,71 @@
+---
+title: "Daily Stand Ups for Devs"
+description: "Most standups are bad because they're optimized for managers, not for the people writing the code. Here's the version I actually use — and the open-source app I built to support it."
+pubDate: 2024-07-27
+tags: ["productivity", "laravel", "vue", "opensource"]
+canonicalURL: "https://dev.to/m4rcoperuano/daily-stand-ups-for-devs-2j41"
+---
+
+> This is a placeholder. Replace it with the full piece, or rewrite it from
+> scratch as the canonical version. The original lives on dev.to.
+
+Standups, as practiced at most companies, are a meeting designed for the
+person who doesn't need them. Three sentences from each engineer, in
+sequence, about yesterday and today, while everyone waits for their turn.
+The information is shallow, the format is rigid, and the only person
+actually listening is the manager looking for someone to flag.
+
+I think there's a better version. I've been running it on my own teams for
+a few years and I built a small tool to make it easier.
+
+## The format
+
+The version I use is async, written, and structured around three questions:
+
+1. **What did I ship?** Not what I worked on. What's actually merged or
+   visible to a user.
+2. **What's blocking me?** If anything. If nothing is blocking you, say so —
+   that's useful information too.
+3. **What am I focused on next?** One thing. The thing that matters most.
+
+That's it. Three questions, written down, by 10am.
+
+## Why it works
+
+Three reasons, in order of importance.
+
+**It respects the writer's time.** Nobody is sitting in a meeting waiting
+for their turn. Engineers write their standup when they're already in
+flow-state planning mode for the day, not at an arbitrary 9:30am.
+
+**It respects the reader's time.** Managers (and curious teammates) can
+read everyone's standup in two minutes, scan for blockers, and move on.
+You can also actually search standups from three weeks ago, which is
+something you cannot do with a meeting.
+
+**It makes blockers visible without forcing performance.** People are much
+more willing to write "I'm stuck on X" than they are to say it out loud
+in front of seven coworkers. The async format lowers the activation energy
+for asking for help, which is the most valuable signal a standup can
+surface.
+
+## The tool
+
+I built [Stellar Standups](https://stellarstandups.com) because the
+existing options were either bloated SaaS products or Slack bots that I
+didn't trust to outlive their funding round.
+
+It's a small Laravel app. It does one thing: gives a team a URL where they
+can submit their standup and read everyone else's. No notifications, no
+"productivity insights," no AI summaries. The app is open source and you
+can self-host it if you want.
+
+## What I'd change
+
+The thing I'd add, if I were building it for the first time today, is a
+weekly digest — an automatic rollup of what each person shipped that week,
+suitable for sharing with non-engineering stakeholders. The information is
+already in the standups; surfacing it would take an afternoon.
+
+The thing I'd remove, if I could go back, is the calendar view. Nobody uses
+it. It's beautiful and useless, like a lot of features.

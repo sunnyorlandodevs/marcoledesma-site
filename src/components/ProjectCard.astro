@@ -1,0 +1,106 @@
+---
+export interface Props {
+  kicker: string;
+  title: string; // may contain <span class="accent"> markup
+  description: string;
+  tech: string[];
+  url?: string;
+  featured?: boolean;
+  span?: 'span-5' | 'span-6' | 'span-7';
+}
+const { kicker, title, description, tech, url, featured = false, span = 'span-6' } = Astro.props;
+const Tag = url ? 'a' : 'article';
+---
+
+<Tag class:list={['project', span, { featured }]} href={url}>
+  <div class="project-kicker"><span class="dot"></span>{kicker}</div>
+  <h3 set:html={title}></h3>
+  <p class="project-desc">{description}</p>
+  <div class="project-tech">
+    {tech.map((t) => <span>{t}</span>)}
+  </div>
+</Tag>
+
+<style>
+  .project {
+    background: var(--paper-2);
+    padding: 36px;
+    border-radius: 6px;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+    color: var(--ink);
+    display: block;
+  }
+  .project:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 40px -20px rgba(26, 24, 20, 0.18);
+  }
+  .span-7 { grid-column: span 7; }
+  .span-5 { grid-column: span 5; }
+  .span-6 { grid-column: span 6; }
+  .featured {
+    background: var(--featured-bg);
+    color: var(--featured-text);
+  }
+  .featured .project-kicker { color: var(--featured-kicker); }
+  .featured .project-desc { color: var(--featured-desc); }
+  .featured .project-tech { color: var(--featured-tech); }
+  .featured :global(h3 .accent) { color: var(--warm); font-weight: 800; }
+  .featured .project-kicker .dot { background: var(--warm); }
+
+  .project-kicker {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .project-kicker .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: inline-block;
+  }
+  .project :global(h3) {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    margin-bottom: 14px;
+  }
+  .project :global(h3 .accent) {
+    color: var(--accent);
+    font-weight: 800;
+  }
+  .project-desc {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin-bottom: 24px;
+  }
+  .featured .project-desc { color: var(--featured-desc); }
+  .project-tech {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+  }
+  .project-tech span::before {
+    content: '+ ';
+    color: var(--accent);
+  }
+  .featured .project-tech span::before { color: var(--warm); }
+  @media (max-width: 860px) {
+    .span-7, .span-5, .span-6 { grid-column: span 12; }
+  }
+</style>
