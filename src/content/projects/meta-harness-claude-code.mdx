@@ -23,13 +23,13 @@ My workflow typically involves switching between multiple clients, each with its
 
 It’s the software infrastructure that wraps around an AI model (such as a language model) to transform it into a fully functional and autonomous AI agent. For instance, Claude Code serves as a harness, similar to Hermes, Pi, Open Code, and others. In the context of this article, we’ll consider Harness to be synonymous with Claude Code.
 
-![A visual representation of a harness](@assets/images/projects/meta-harness-for-working-with-span-class-accent-claude/harness-diagram.png)
+![A visual representation of a harness](@assets/images/projects/meta-harness-claude-code/harness-diagram.png)
 
 ## What is a meta-harness?
 
 It's not a term I've seen used before but it describes what I tried to accomplish pretty cleanly. My goal was to gather metadata about my harness sessions in an effort to retain as much context as possible. Think of a meta-harness like a note taker, constantly reading your messages back and forth, taking notes about what you think is important.
 
-![An illustration of how a harness emits events that an API can consume](@assets/images/projects/meta-harness-for-working-with-span-class-accent-claude/metaharness-diagram.png)
+![An illustration of how a harness emits events that an API can consume](@assets/images/projects/meta-harness-claude-code/metaharness-diagram.png)
 
 ## How do you capture metadata?
 
@@ -60,7 +60,7 @@ Every event payload includes `session_id` and `cwd (current working directory)`.
 
 Using the knowledge gained from the previous experience, I developed an app called Sunny Bots that serves as my primary tool for utilizing Claude Code. As a result, I rarely open Claude Code’s terminal anymore, as I’ve successfully set it up to initiate sessions and continue conversations where I left off without ever needing to open the terminal.&#x20;
 
-![Screenshot of how i communicate with Claude Code via a web interface](@assets/images/projects/meta-harness-for-working-with-span-class-accent-claude/new-session.png)
+![Screenshot of how i communicate with Claude Code via a web interface](@assets/images/projects/meta-harness-claude-code/new-session.png)
 
 This is an example of a Claude Code terminal session being driven through a custom web UI. The stack is pretty straight forward if you're a Laravel dev:
 
@@ -73,7 +73,7 @@ This is an example of a Claude Code terminal session being driven through a cust
 
 However, **your version of this does NOT need to use Laravel or any particular framework.** In fact, the documentation in my github for this article was written so its framework-agnostic.
 
-![Screenshot of my session's file-diff viewer](@assets/images/projects/meta-harness-for-working-with-span-class-accent-claude/file-diff-viewer.png)
+![Screenshot of my session's file-diff viewer](@assets/images/projects/meta-harness-claude-code/file-diff-viewer.png)
 
 It doesn’t necessarily have to be a web-based user interface for chat. As demonstrated above, I was able to incorporate a file-diff viewer, which allows me to observe the changes made by Claude to my files without opening my integrated development environment (IDE).
 
@@ -81,29 +81,29 @@ It doesn’t necessarily have to be a web-based user interface for chat. As demo
 
 * This is an AI summary that are auto-populated as my chat evolves.
 
-![AI summary widget](@assets/images/projects/meta-harness-for-working-with-span-class-accent-claude/ai-summary.png)&#x20;
+![AI summary widget](@assets/images/projects/meta-harness-claude-code/ai-summary.png)&#x20;
 
 * The ability to attach files or switch claude models
 
-![Ability to add/remove files and choose a model during the session](@assets/images/projects/meta-harness-for-working-with-span-class-accent-claude/models-and-files.png)
+![Ability to add/remove files and choose a model during the session](@assets/images/projects/meta-harness-claude-code/models-and-files.png)
 
 * See estimated token cost, flagging, and archiving sessions
 
-![Showcasing token cost usage](@assets/images/projects/meta-harness-for-working-with-span-class-accent-claude/token-cost.png)
+![Showcasing token cost usage](@assets/images/projects/meta-harness-claude-code/token-cost.png)
 
 > NOTE: This entire process is driven by Claude’s \`-p\` command, which allows me to continue using Claude code through my subscription. However, Anthropic is changing this policy, treating \`-p\` as an API cost instead of through the subscription. This is unfortunate, but I’ve already begun transitioning to another harness called Hermes. This, along with Open Router, has prepared me to switch to another model that is almost comparable to Claude Code, albeit significantly cheaper to use (Deepseek v4 at the time of writing).
 
 * The ability to use a custom model. Locally, I've run LMStudio that lets me download open source models and host a small server to run them locally. Then, i can connect it to my app like so:
 
-![Changing the model source for a chat](@assets/images/projects/meta-harness-for-working-with-span-class-accent-claude/changing-model.png)
+![Changing the model source for a chat](@assets/images/projects/meta-harness-claude-code/changing-model.png)
 
 * I've built a Dashboard with a weather widget, weekly digest (it integrates with my calendar), and access to my current batch of clients
 
-![Dashboard widgets](@assets/images/projects/meta-harness-for-working-with-span-class-accent-claude/dashboard-widgets.png)
+![Dashboard widgets](@assets/images/projects/meta-harness-claude-code/dashboard-widgets.png)
 
 * You'll also notice in my screenshots my little cat avatar. I created him to remind me to take breaks. He also is an agent as well, so he has access to all the data in my sunny-bots app.&#x20;
 
-![Chat window with my avatar](@assets/images/projects/meta-harness-for-working-with-span-class-accent-claude/chatting-with-avatar.png)
+![Chat window with my avatar](@assets/images/projects/meta-harness-claude-code/chatting-with-avatar.png)
 
 ## Summary
 
