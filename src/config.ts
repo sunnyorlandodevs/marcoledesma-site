@@ -4,11 +4,10 @@ export const SITE = {
   description:
     'Engineer, writer, and builder based in Orlando. I build software and try to explain the parts everyone skips past.',
   author: 'Marco Ledesma',
-  email: 'hello@marcoledesma.com',
+  email: 'marco@sunnyorlando.dev',
 };
 
 export const NAV = [
-  { label: 'Writing', href: '/blog' },
   { label: 'Projects', href: '/projects' },
   { label: 'About', href: '/about' },
   { label: 'Contact', href: '/#contact' },
@@ -18,5 +17,4 @@ export const SOCIAL = [
   { label: 'GitHub', href: 'https://github.com/m4rcoperuano' },
   { label: 'dev.to', href: 'https://dev.to/m4rcoperuano' },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/marcoledesma' },
-  { label: 'Twitter', href: 'https://twitter.com/m4rco_L' },
 ];

@@ -49,7 +49,9 @@ const projects = (await getCollection('projects'))
     </div>
   </header>
 
-  <!-- AI CONSULTING CALLOUT -->
+  {/* AI CONSULTING CALLOUT — hidden for now. Page lives at src/pages/_ai.astro;
+      to re-enable, rename that file back to ai.astro and un-comment this block. */}
+  {/*
   <a class="ai-callout" href="/ai">
     <div class="ai-callout-main">
       <span class="ai-callout-kicker">New · For teams adopting AI</span>
@@ -60,46 +62,47 @@ const projects = (await getCollection('projects'))
     </div>
     <span class="ai-callout-cta">Work with me</span>
   </a>
+  */}
 
   <!-- WRITING -->
-  <section class="section">
-    <div class="section-head">
-      <div class="section-num"><strong>01</strong>The writing</div>
-      <h2 class="section-title">Essays on the parts of software I find <span class="accent">enjoyable</span>.</h2>
-    </div>
+  <!--<section class="section">-->
+  <!--  <div class="section-head">-->
+  <!--    <div class="section-num"><strong>01</strong>The writing</div>-->
+  <!--    <h2 class="section-title">Essays on the parts of software I find <span class="accent">enjoyable</span>.</h2>-->
+  <!--  </div>-->
 
-    {featuredPost && (
-      <a class="featured-article" href={`/blog/${featuredPost.slug}`}>
-        <div>
-          <div class="article-meta">
-            {featuredPost.data.pubDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
-            · {featuredPost.data.tags.slice(0, 2).map((t) => <span class="tag">#{t}</span>).reduce((a, b) => <>{a} {b}</>, <></>)}
-          </div>
-          <h3>{featuredPost.data.title}</h3>
-          <p>{featuredPost.data.description}</p>
-          <span class="read-more">Read the piece</span>
-        </div>
-        <div class="featured-visual">
-          <pre class="code-preview">{`// ${featuredPost.slug}\n// ${featuredPost.data.tags.join(', ')}\n//\n// "${featuredPost.data.description.slice(0, 60)}..."`}</pre>
-        </div>
-      </a>
-    )}
+  <!--  {featuredPost && (-->
+  <!--    <a class="featured-article" href={`/blog/${featuredPost.slug}`}>-->
+  <!--      <div>-->
+  <!--        <div class="article-meta">-->
+  <!--          {featuredPost.data.pubDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}-->
+  <!--          · {featuredPost.data.tags.slice(0, 2).map((t) => <span class="tag">#{t}</span>).reduce((a, b) => <>{a} {b}</>, <></>)}-->
+  <!--        </div>-->
+  <!--        <h3>{featuredPost.data.title}</h3>-->
+  <!--        <p>{featuredPost.data.description}</p>-->
+  <!--        <span class="read-more">Read the piece</span>-->
+  <!--      </div>-->
+  <!--      <div class="featured-visual">-->
+  <!--        <pre class="code-preview">{`// ${featuredPost.slug}\n// ${featuredPost.data.tags.join(', ')}\n//\n// "${featuredPost.data.description.slice(0, 60)}..."`}</pre>-->
+  <!--      </div>-->
+  <!--    </a>-->
+  <!--  )}-->
 
-    <div class="article-list">
-      {restPosts.slice(0, 5).map((p) => (
-        <ArticleRow
-          href={`/blog/${p.slug}`}
-          date={p.data.pubDate}
-          title={p.data.title}
-          tags={p.data.tags}
-        />
-      ))}
-    </div>
+  <!--  <div class="article-list">-->
+  <!--    {restPosts.slice(0, 5).map((p) => (-->
+  <!--      <ArticleRow-->
+  <!--        href={`/blog/${p.slug}`}-->
+  <!--        date={p.data.pubDate}-->
+  <!--        title={p.data.title}-->
+  <!--        tags={p.data.tags}-->
+  <!--      />-->
+  <!--    ))}-->
+  <!--  </div>-->
 
-    <div style="margin-top: 40px;">
-      <a href="/blog" class="read-more">All writing</a>
-    </div>
-  </section>
+  <!--  <div style="margin-top: 40px;">-->
+  <!--    <a href="/blog" class="read-more">All writing</a>-->
+  <!--  </div>-->
+  <!--</section>-->
 
   <!-- PROJECTS -->
   <section class="section">
@@ -151,11 +154,11 @@ const projects = (await getCollection('projects'))
         <p>
           On the side, I still build: passion applications, tools that help me and my team, and writing that tries to
           <span class="accent">simplify</span> complex concepts.
-          Lately, that means teaching what I’ve learned building with AI and <a href="/ai">helping teams adopt it</a>.
+          Lately, that means teaching what I’ve learned building with AI and helping teams adopt it.
         </p>
         <p>
           More on the <a href="/about">about page</a>, or
-          <a href="#contact">say hello</a>.
+          <a href="mailto:marco@sunnyorlando.dev">say hello</a>.
         </p>
       </div>
     </div>
@@ -256,7 +259,6 @@ const projects = (await getCollection('projects'))
     font-size: 13px;
     font-weight: 500;
     color: var(--muted);
-    transform: rotate(8deg);
     max-width: 210px;
     line-height: 1.45;
   }
