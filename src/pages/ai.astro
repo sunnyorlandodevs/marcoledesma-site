@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Work with me on AI"
+  description="I help engineering teams adopt AI agents — prompt engineering, managing context, and tools like Claude Code and Codex — without betting the codebase on a demo."
+>
+  <article class="about">
+    <header>
+      <div class="meta-label">Work with me · Sunny Orlando Devs</div>
+      <h1>I help your team <span class="accent">actually use</span> AI agents.</h1>
+      <p class="lede">
+        Claude Code, Codex, whatever harness fits your stack. I've shipped software for thirteen years, and I've spent the last stretch putting these tools to real work. I'll help your team do the same — without the hype, and without betting the codebase on a demo.
+      </p>
+    </header>
+
+    <div class="prose">
+      <h2>Who this is for</h2>
+      <p>
+        Teams who've seen the demos and want to know what's real. You have engineers who are good at their jobs and a codebase that matters. You're not looking for someone to tell you AI is the future — you want someone who has done the work to tell you which parts hold up, which parts don't yet, and how to fold the good parts into how you already ship.
+      </p>
+
+      <h2>What I help with</h2>
+      <p>
+        <em>Prompt engineering that survives a real codebase.</em> Not clever one-liners — repeatable prompts and patterns that hold up against the messy, half-documented systems your team actually works in.
+      </p>
+      <p>
+        <em>Managing context.</em> The difference between an agent that helps and an agent that wastes an afternoon is usually what you fed it. I'll show your team what to put in front of an agent, what to leave out, and why it matters.
+      </p>
+      <p>
+        <em>Working with agent harnesses.</em> Claude Code, Codex, or whichever tool fits your stack. How to set them up, where they earn their keep, where they don't, and how to keep a human in the loop so you can trust what ships.
+      </p>
+
+      <h2>How we'd work</h2>
+      <p>
+        It starts with a conversation — what your team builds, what you've tried, and where AI is either helping or getting in the way. From there it's hands-on: working sessions with your engineers, on your code, not slides. The goal is that your team keeps the skill after I leave, not that you need me on retainer.
+      </p>
+
+      <h2>Why me</h2>
+      <p>
+        I was the first engineer at <a href="/about">Leasecake</a> and I'm now VP of Engineering at SendJim. I've spent thirteen years across .NET, Laravel, and the messy interior of SaaS products — building products end-to-end, then growing and leading the teams that maintain them. I build my own tools on top of these agents, so I'm teaching from what I run every day, not from a course I bought.
+      </p>
+
+      <h2>How to start</h2>
+      <p>
+        I take this work through <strong>Sunny Orlando Devs</strong>, my consultancy. Email is best: <a href="mailto:hello@marcoledesma.com">hello@marcoledesma.com</a>. Tell me what your team is building and where AI fits — or doesn't yet — and we'll figure out whether I can help.
+      </p>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .about { padding: 80px 0 100px; max-width: 720px; margin: 0 auto; }
+  header { margin-bottom: 80px; }
+  .meta-label { margin-bottom: 24px; }
+  h1 {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: clamp(44px, 6.5vw, 80px);
+    line-height: 1;
+    letter-spacing: -0.035em;
+    margin-bottom: 32px;
+    color: var(--ink);
+  }
+  h1 .accent { color: var(--accent); font-weight: 800; }
+  .lede {
+    font-family: var(--font-sans);
+    font-size: 21px;
+    font-weight: 400;
+    line-height: 1.55;
+    color: var(--ink-2);
+    letter-spacing: -0.005em;
+  }
+</style>

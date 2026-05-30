@@ -17,21 +17,20 @@ const projects = (await getCollection('projects'))
   <header class="hero">
     <div class="meta-line">Orlando, FL · Est. 2012</div>
     <h1>
-      I build
-      <span class="accent">software augmented with AI</span>,<br/>
-      and teach how<br/>
-      it <span class="underline">actually</span> works.
+      Thirteen years building software.<br/>
+      Now I build with <span class="accent">AI</span> —<br/>
+      and teach how it <span class="underline">actually</span> works.
     </h1>
 
     <div class="corner-mark">
-      Currently VP of Engineering at SendJim, writing about the parts of software I find fun to work in.
+      Currently VP of Engineering at SendJim, writing and teaching about the parts of software I find fun to work in.
     </div>
 
     <div class="hero-grid">
       <p class="lede">
-        Engineer for thirteen years across .NET, Laravel, and the messy interior of SaaS products.
-        These days I spend most of my time helping teams ship and helping readers <span class="accent">understand</span>
-        the parts everyone skips past.
+        Engineer for thirteen years across .NET, Laravel, and the complex world of SaaS products.
+        These days I build with AI agents and write to help people <span class="accent">understand</span>
+        the parts everyone skips past. Videos are coming soon.
       </p>
       <aside class="hero-meta">
         <div class="item">
@@ -50,11 +49,23 @@ const projects = (await getCollection('projects'))
     </div>
   </header>
 
+  <!-- AI CONSULTING CALLOUT -->
+  <a class="ai-callout" href="/ai">
+    <div class="ai-callout-main">
+      <span class="ai-callout-kicker">New · For teams adopting AI</span>
+      <span class="ai-callout-title">Help your team actually use AI agents</span>
+      <span class="ai-callout-sub">
+        Prompt engineering, managing context, and working with harnesses like Claude Code and Codex.
+      </span>
+    </div>
+    <span class="ai-callout-cta">Work with me</span>
+  </a>
+
   <!-- WRITING -->
   <section class="section">
     <div class="section-head">
       <div class="section-num"><strong>01</strong>The writing</div>
-      <h2 class="section-title">Essays on the parts of software I find <span class="accent">delightful</span>.</h2>
+      <h2 class="section-title">Essays on the parts of software I find <span class="accent">enjoyable</span>.</h2>
     </div>
 
     {featuredPost && (
@@ -129,14 +140,18 @@ const projects = (await getCollection('projects'))
       </div>
       <div class="about-text">
         <p>
-          Started as the first engineer at <span class="accent">Leasecake</span>, building lease-accounting software end-to-end.
-          Spent four years as principal, two as director, learning that the hardest part of engineering is
-          rarely the engineering.
+          I began my career at a small development agency, where I built apps and websites for various clients. Additionally, I took on contract work on the side under my own name.
         </p>
         <p>
-          Now VP of Engineering at <span class="accent">SendJim</span>, where I help a small team ship a campaign-automation
-          product to thousands of small businesses. On the side I build things — apps that don't make money,
-          tools that do, and writing that tries to make complicated things <span class="accent">obvious</span>.
+          Then I joined <span class="accent">Leasecake</span> as the first engineer, then principal, and finally director.
+          During my time there, I learned to create effective processes to keep the team in sync.
+          Now, I’m the VP of Engineering at <span class="accent">SendJim</span>,
+          where I help a small team ship new features to many small businesses.
+        </p>
+        <p>
+          On the side, I still build: passion applications, tools that help me and my team, and writing that tries to
+          <span class="accent">simplify</span> complex concepts.
+          Lately, that means teaching what I’ve learned building with AI and <a href="/ai">helping teams adopt it</a>.
         </p>
         <p>
           More on the <a href="/about">about page</a>, or
@@ -172,11 +187,11 @@ const projects = (await getCollection('projects'))
   .hero h1 {
     font-family: var(--font-sans);
     font-weight: 700;
-    font-size: clamp(44px, 7.5vw, 92px);
-    line-height: 1;
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: 1.05;
     letter-spacing: -0.035em;
     margin-bottom: 32px;
-    max-width: 14ch;
+    max-width: 20ch;
     color: var(--ink);
   }
   .hero h1 .accent {
@@ -252,6 +267,66 @@ const projects = (await getCollection('projects'))
     color: var(--accent);
     margin-bottom: 8px;
   }
+
+  /* AI consulting callout — deliberately stands out from the warm paper sections */
+  .ai-callout {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    margin-top: 8px;
+    padding: 28px 32px;
+    background: var(--accent);
+    color: var(--paper);
+    border-radius: 6px;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .ai-callout:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(47, 93, 84, 0.28);
+  }
+  .ai-callout-main { display: flex; flex-direction: column; gap: 6px; }
+  .ai-callout-kicker {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-soft);
+    font-weight: 500;
+  }
+  .ai-callout-title {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: clamp(20px, 2.6vw, 26px);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  .ai-callout-sub {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--accent-soft);
+    max-width: 52ch;
+  }
+  .ai-callout-cta {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--accent-soft);
+    padding: 10px 18px;
+    border-radius: 4px;
+  }
+  .ai-callout-cta::after {
+    content: '→';
+    transition: transform 0.25s ease;
+  }
+  .ai-callout:hover .ai-callout-cta::after { transform: translateX(4px); }
 
   /* Featured article */
   .featured-article {
@@ -393,6 +468,7 @@ const projects = (await getCollection('projects'))
     .hero-grid { grid-template-columns: 1fr; gap: 40px; }
     .hero-meta { border-left: none; border-top: 1px solid var(--rule); padding-left: 0; padding-top: 24px; }
     .corner-mark { display: none; }
+    .ai-callout { flex-direction: column; align-items: flex-start; gap: 20px; padding: 24px; }
     .featured-article { grid-template-columns: 1fr; padding: 28px; gap: 32px; }
     .featured-visual { aspect-ratio: 16/10; }
     .about-strip { grid-template-columns: 1fr; }
