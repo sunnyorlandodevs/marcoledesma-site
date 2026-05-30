@@ -1,12 +1,17 @@
 ---
 title: 'A meta-harness for working with <span class="accent">Claude</span>'
 kicker: "Sunny Bots · Internal"
-description: "A wrapper around Claude Code with hook-based response interception, structured extraction to a database, and a UI layer with pinned entities. Per-client folders, session templates, and a dispatcher that infers intent. Built for one goal: keeping track of what you're working on."
+description: "A wrapper around Claude Code with hook-based response interception, structured extraction to a database, and a UI layer with pinned entities."
 tech: ["Laravel", "Postgres", "Vue", "Web Sockets", "Redis"]
 featured: true
 order: 1
 year: 2026
 ---
+
+import { Image } from 'astro:assets';
+import shot from '../../assets/sunny-bots-screenshot.png';
+
+<Image src={shot} alt="Sunny Bots dashboard" style="max-width: 800px; width: 100%; height: auto;" />
 
 Sunny Bots is the system I use for almost all of my AI-assisted work. It
 wraps Claude Code with response hooks that extract structured data into a
