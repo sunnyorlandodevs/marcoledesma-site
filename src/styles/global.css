@@ -213,6 +213,12 @@ a { color: inherit; }
   color: var(--ink-2);
 }
 .prose > * + * { margin-top: 1.2em; }
+.prose img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
 .prose h2 {
   font-family: var(--font-sans);
   font-weight: 700;

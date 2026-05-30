@@ -16,6 +16,19 @@ npm run post:publish                          # build + commit "chore: publish s
 
 There is no test suite and no linter configured. "Verifying a change" means `npm run build` succeeds and the page looks right in `npm run dev`.
 
+## Content editing (Keystatic)
+
+A Keystatic admin UI is wired up for editing the `blog` and `projects` collections through a GUI instead of hand-writing MDX. It runs in **local mode** — it reads and writes the same MDX files in `src/content/`, so edits are just normal git changes you commit and push.
+
+- `npm run dev` sets `ENABLE_KEYSTATIC=true`, then visit **http://localhost:4321/keystatic**.
+- `npm run dev:nocms` runs the dev server without it.
+- Config lives in `keystatic.config.ts` (root). Its field schema must stay in sync with the Zod schemas in `src/content/config.ts` — if you add a frontmatter field in one, add it in both.
+- **Keystatic is dev-only by design.** `astro.config.mjs` only loads the React + Keystatic integrations when `ENABLE_KEYSTATIC=true`, so `npm run build` (and the GitHub Pages deploy) stays pure static — no React, no server routes, no adapter. Don't set that env var in CI.
+- **Images:** Keystatic writes uploaded body images into `src/assets/images/<collection>/` and references them with the `@assets/` alias (set in `tsconfig.json`). Because they live under `src/`, Astro's optimizer processes them at build → hashed `.webp` in `/_astro/`, auto width/height, lazy-loaded. Never point Keystatic's image `directory` at `public/` — that ships raw, unoptimized files.
+- Caveat: the `projects` MDX bodies use Astro component imports (`<Image>` from `astro:assets`). Keystatic's editor doesn't round-trip arbitrary imports/JSX cleanly — edit project *frontmatter* in Keystatic, but edit project *bodies* by hand. Blog posts are plain MDX prose and edit cleanly.
+
+> Astro 5's content layer persists a cache at `node_modules/.astro/data-store.json`. If a build renders a post that no longer exists on disk (e.g. after deleting an MDX file while a `dev` server was running), delete that file and rebuild.
+
 ## Architecture
 
 Two typed content collections drive everything (`src/content/config.ts`, Zod schemas):

@@ -4,7 +4,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "astro dev",
+    "dev": "ENABLE_KEYSTATIC=true astro dev",
+    "dev:nocms": "astro dev",
+    "cms": "ENABLE_KEYSTATIC=true astro dev",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
@@ -19,6 +21,11 @@
     "astro": "^5.0.0"
   },
   "devDependencies": {
-    "@types/node": "^22.0.0"
+    "@astrojs/react": "^5.0.6",
+    "@keystatic/astro": "^5.1.0",
+    "@keystatic/core": "^0.5.50",
+    "@types/node": "^22.0.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
   }
 }
