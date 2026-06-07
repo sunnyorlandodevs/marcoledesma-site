@@ -65,44 +65,44 @@ const projects = (await getCollection('projects'))
   */}
 
   <!-- WRITING -->
-  <!--<section class="section">-->
-  <!--  <div class="section-head">-->
-  <!--    <div class="section-num"><strong>01</strong>The writing</div>-->
-  <!--    <h2 class="section-title">Essays on the parts of software I find <span class="accent">enjoyable</span>.</h2>-->
-  <!--  </div>-->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-num"><strong>01</strong>The writing</div>
+      <h2 class="section-title">Essays on the parts of software I find <span class="accent">enjoyable</span>.</h2>
+    </div>
 
-  <!--  {featuredPost && (-->
-  <!--    <a class="featured-article" href={`/blog/${featuredPost.slug}`}>-->
-  <!--      <div>-->
-  <!--        <div class="article-meta">-->
-  <!--          {featuredPost.data.pubDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}-->
-  <!--          · {featuredPost.data.tags.slice(0, 2).map((t) => <span class="tag">#{t}</span>).reduce((a, b) => <>{a} {b}</>, <></>)}-->
-  <!--        </div>-->
-  <!--        <h3>{featuredPost.data.title}</h3>-->
-  <!--        <p>{featuredPost.data.description}</p>-->
-  <!--        <span class="read-more">Read the piece</span>-->
-  <!--      </div>-->
-  <!--      <div class="featured-visual">-->
-  <!--        <pre class="code-preview">{`// ${featuredPost.slug}\n// ${featuredPost.data.tags.join(', ')}\n//\n// "${featuredPost.data.description.slice(0, 60)}..."`}</pre>-->
-  <!--      </div>-->
-  <!--    </a>-->
-  <!--  )}-->
+    {featuredPost && (
+      <a class="featured-article" href={`/blog/${featuredPost.slug}`}>
+        <div>
+          <div class="article-meta">
+            {featuredPost.data.pubDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+            · {featuredPost.data.tags.slice(0, 2).map((t) => <span class="tag">#{t}</span>).reduce((a, b) => <>{a} {b}</>, <></>)}
+          </div>
+          <h3>{featuredPost.data.title}</h3>
+          <p>{featuredPost.data.description}</p>
+          <span class="read-more">Read the piece</span>
+        </div>
+        <div class="featured-visual">
+          <pre class="code-preview">{`// ${featuredPost.slug}\n// ${featuredPost.data.tags.join(', ')}\n//\n// "${featuredPost.data.description.slice(0, 60)}..."`}</pre>
+        </div>
+      </a>
+    )}
 
-  <!--  <div class="article-list">-->
-  <!--    {restPosts.slice(0, 5).map((p) => (-->
-  <!--      <ArticleRow-->
-  <!--        href={`/blog/${p.slug}`}-->
-  <!--        date={p.data.pubDate}-->
-  <!--        title={p.data.title}-->
-  <!--        tags={p.data.tags}-->
-  <!--      />-->
-  <!--    ))}-->
-  <!--  </div>-->
+    <div class="article-list">
+      {restPosts.slice(0, 5).map((p) => (
+        <ArticleRow
+          href={`/blog/${p.slug}`}
+          date={p.data.pubDate}
+          title={p.data.title}
+          tags={p.data.tags}
+        />
+      ))}
+    </div>
 
-  <!--  <div style="margin-top: 40px;">-->
-  <!--    <a href="/blog" class="read-more">All writing</a>-->
-  <!--  </div>-->
-  <!--</section>-->
+    <div style="margin-top: 40px;">
+      <a href="/blog" class="read-more">All writing</a>
+    </div>
+  </section>
 
   <!-- PROJECTS -->
   <section class="section">

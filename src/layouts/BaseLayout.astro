@@ -73,5 +73,87 @@ const canonicalURL = canonical ?? new URL(Astro.url.pathname, Astro.site).toStri
       </main>
       <Footer />
     </div>
+
+    <div id="lb" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Image lightbox">
+      <button id="lb-close" aria-label="Close lightbox">×</button>
+      <img id="lb-img" src="" alt="" />
+    </div>
   </body>
 </html>
+
+<style is:global>
+  #lb {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.88);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+    padding: 24px;
+  }
+  #lb.open {
+    display: flex;
+    animation: lb-fade 0.18s ease;
+  }
+  #lb-img {
+    max-width: min(90vw, 1200px);
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+    cursor: default;
+  }
+  #lb-close {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 36px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 4px 10px;
+    font-family: var(--font-sans);
+    transition: color 0.15s;
+  }
+  #lb-close:hover { color: #fff; }
+  @keyframes lb-fade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  .prose img { cursor: zoom-in; }
+</style>
+
+<script>
+  const lb    = document.getElementById('lb') as HTMLElement;
+  const lbImg = document.getElementById('lb-img') as HTMLImageElement;
+
+  function openLb(src: string, alt: string) {
+    lbImg.src = src;
+    lbImg.alt = alt;
+    lb.classList.add('open');
+    lb.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLb() {
+    lb.classList.remove('open');
+    lb.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    lbImg.src = '';
+  }
+
+  document.addEventListener('click', (e) => {
+    const img = (e.target as Element).closest('.prose img') as HTMLImageElement | null;
+    if (img) { e.preventDefault(); openLb(img.src, img.alt); }
+  });
+
+  lb.addEventListener('click', (e) => { if (e.target !== lbImg) closeLb(); });
+
+  document.getElementById('lb-close')!.addEventListener('click', closeLb);
+
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLb(); });
+</script>
